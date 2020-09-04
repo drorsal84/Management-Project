@@ -1,0 +1,177 @@
+.container {
+    padding-bottom: 6.3rem;
+}
+
+
+/* Breadcrumbs */
+
+.bc-row {
+    font-size: 14px;
+}
+
+.bc-link {
+    color: #339966;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+/* Title */
+
+.title {
+    text-decoration: underline;
+    color: #339966;
+    text-align: center;
+}
+
+.confirm-modal {
+    z-index: 4000;
+}
+
+
+/* Buttons */
+
+.btn {
+    color: #fff;
+    -webkit-transition: -webkit-filter 0.3s;
+    transition: -webkit-filter 0.3s;
+    -o-transition: filter 0.3s;
+    transition: filter 0.3s;
+    transition: filter 0.3s, -webkit-filter 0.3s;
+}
+
+.btn:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.btn:hover {
+    -webkit-filter: brightness(120%);
+    filter: brightness(120%);
+}
+
+.sort-btn {
+    color: #339966;
+    border: none;
+    background: none;
+    padding: 2px;
+}
+
+.sort-btn:focus {
+    -webkit-filter: brightness(140%);
+    filter: brightness(140%);
+    border: none;
+    background: none;
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.open-btn {
+    background-color: #339966;
+}
+
+.close-btn {
+    background-color: #DC143C;
+}
+
+.active-offer-btn {
+    background-color: #0275d8;
+}
+
+
+/* Modals */
+
+form {
+    text-align: right;
+    color: #339966;
+}
+
+.md-form {
+    text-align: right;
+}
+
+input,
+textarea,
+select {
+    direction: rtl;
+    font-size: 13px;
+}
+
+.modal {
+    overflow: auto !important;
+}
+
+.modal-header {
+    background-color: #339966;
+    color: #fff;
+    padding-left: 40px;
+}
+
+.default-option {
+    color: #000;
+}
+
+
+/* Table */
+
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+    background-color: #cecece;
+}
+
+.table td,
+.table th {
+    text-align: center;
+    color: #339966;
+}
+
+.table td {
+    vertical-align: middle;
+    font-family: Helvetica, sans-serif;
+    font-size: 12px;
+}
+
+.table th {
+    font-size: 13px;
+}
+
+.table-icon,
+.loading-spinner {
+    color: #339966;
+}
+
+
+/* Pagination */
+
+ngb-pagination ::ng-deep ul>li:not(.active)>a {
+    color: #339966 !important;
+    background-color: #fff !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    font-size: 10px;
+}
+
+ngb-pagination ::ng-deep ul>li.active>a {
+    color: #fff !important;
+    background-color: #339966 !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border-color: #fff !important;
+    font-size: 10px;
+}
+
+.pagination-options {
+    color: #339966;
+}
+
+
+/* Product stock colors */
+
+.colorSIR {
+    background-color: #d9534f;
+}
+
+.colorCAM {
+    background-color: #5cb85c;
+}

@@ -1,0 +1,62 @@
+<div class="container w-100 ml-4">
+
+    <!--page breadcrumbs-->
+
+    <div class="row justify-content-end bcRow">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">עבודות</li>
+                <li class="breadcrumb-item"><a class="bcHomepageLink" [routerLink]="'/homepage'">בית</a></li>
+            </ol>
+        </nav>
+    </div>
+
+    <!--Job cards-->
+
+    <div class="row justify-content-around">
+
+        <div id="productCard" class="col-md-4 col-lg-4 col-xl-2 pt-4" [@animateCard]>
+            <div class="card border-success">
+                <a [routerLink]="'/jobs-history'"><img class="card-img-top" src="assets/JobsImg/jobHistoryImg1.png"></a>
+                <div class="card-body">
+                    <h3 class="card-title"><a class="card-body__link" [routerLink]="'/jobs-history'">היסטוריית עבודות</a></h3>
+                </div>
+            </div>
+        </div>
+        <div id="jobsCard" class="col-md-4 col-lg-4 col-xl-2 pt-4" [@animateCard]>
+            <div class="card border-success">
+                <a [routerLink]="'/active-jobs'"><img class="card-img-top" src="assets/JobsImg/activeJobsImg.png"></a>
+                <div class="card-body">
+                    <h3 class="card-title"><a class="card-body__link" [routerLink]="'/active-jobs'">עבודות פעילות</a></h3>
+                </div>
+            </div>
+        </div>
+        <div id="productCard" class="col-md-4 col-lg-4 col-xl-2 pt-4" [@animateCard]>
+            <div class="card border-success">
+                <a [routerLink]="'/offers-history'"><img class="card-img-top" src="assets/JobsImg/jobHistoryImg.png"></a>
+                <div class="card-body">
+                    <h3 class="card-title"><a class="card-body__link" [routerLink]="'/offers-history'">היסטוריית הצעות</a></h3>
+                </div>
+            </div>
+        </div>
+        <div id="jobsCard" class="col-md-1 col-lg-1 col-xl-2 pt-4" [@animateCard]>
+            <div class="card border-success">
+                <a [routerLink]="'/active-offers'"><img class="card-img-top" src="assets/JobsImg/activeOffersImg.png"></a>
+                <div class="card-body">
+                    <h3 class="card-title"><a class="card-body__link" [routerLink]="'/active-offers'">הצעות פעילות</a></h3>
+                </div>
+            </div>
+        </div>
+        <div id="jobsCard" class="col-md-4 col-lg-3 col-xl-2 pt-4" [@animateCard]>
+            <div class="card border-success">
+                <a [routerLink]="'/new-offer'"><img class="card-img-top" src="assets/JobsImg/newOfferImg.png"></a>
+                <div class="card-body">
+                    <h3 class="card-title"><a class="card-body__link" [routerLink]="'/new-offer'">צור הצעה חדשה</a></h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<app-idle></app-idle>

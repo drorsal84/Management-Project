@@ -1,0 +1,44 @@
+.container {
+    padding-bottom: 9rem;
+}
+
+.title {
+    text-decoration: underline;
+    color: #339966;
+    text-align: center;
+}
+
+.instructions {
+    color: #fff;
+    background-color: #339966;
+    text-align: center;
+}
+
+#loginFailed {
+    color: #DC143C;
+    text-align: center;
+}
+
+.form-control {
+    text-align: right;
+}
+
+.invalid-feedback {
+    text-align: right;
+    color: #DC143C;
+}
+
+.btn {
+    color: #fff;
+    background-color: #339966;
+    -webkit-transition: -webkit-filter 0.3s;
+    transition: -webkit-filter 0.3s;
+    -o-transition: filter 0.3s;
+    transition: filter 0.3s;
+    transition: filter 0.3s, -webkit-filter 0.3s;
+}
+
+.btn:hover {
+    -webkit-filter: brightness(120%);
+    filter: brightness(120%);
+}

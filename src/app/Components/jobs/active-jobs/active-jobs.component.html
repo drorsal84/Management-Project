@@ -1,0 +1,500 @@
+<div class="container w-100 d-print-none">
+
+    <!--page breadcrumbs-->
+
+    <div class="row justify-content-end bc-row">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">עבודות פעילות</li>
+                <li class="breadcrumb-item"><a class="bc-link" [routerLink]="'/jobs'">עבודות</a></li>
+                <li class="breadcrumb-item"><a class="bc-link" [routerLink]="'/homepage'">בית</a></li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="row title">
+        <div class="col-12 pb-3">
+            {{title}}
+        </div>
+    </div>
+
+    <div class="card mr-n5 ml-n5">
+        <div class="card-header">
+            <div class="row justify-content-end">
+
+                <!--Search forms-->
+
+                <div class="col-8 col-lg-5">
+                    <form [formGroup]="jobSearchForm">
+                        <div class="input-group">
+                            <input type="text" class="form-control input" (input)="searchJobs()" placeholder="חיפוש" formControlName="searchInput" dir="rtl">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--Jobs Table-->
+
+        <div class="card-body overflow-auto">
+            <table id="activeJobsTable" class="table table-sm table-hover">
+                <ngx-spinner [fullScreen]="true" type="ball-clip-rotate-multiple" size="medium" color="rgb(51, 153, 102)">
+                    <p class="loading-spinner">...אוסף נתונים</p>
+                </ngx-spinner>
+                <thead>
+                    <tr class="justify-content-center">
+
+                        <th style="vertical-align: middle;">מוצרים</th>
+
+                        <th>הערות<br><button class="sort-btn"><i class="fas fa-sort-alpha-up"
+                                    (click)="sortByJobRemarksAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-alpha-down"
+                                    (click)="sortByJobRemarksDesc()"></i></button>
+                        </th>
+
+                        <th>תאריך תחילת עבודה<br><button class="sort-btn"><i class="fas fa-sort-numeric-up"
+                                    (click)="sortByDateOfInstallAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-numeric-down"
+                                    (click)="sortByDateOfInstallDesc()"></i></button></th>
+
+                        <th>תאריך שליחת הצעה<br><button class="sort-btn"><i class="fas fa-sort-numeric-up"
+                                    (click)="sortByJobDateOfOfferAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-numeric-down"
+                                    (click)="sortByJobDateOfOfferDesc()"></i></button></th>
+
+                        <th>רווח באחוזים<br><button class="sort-btn"><i class="fas fa-sort-numeric-up"
+                                    (click)="sortByProfitPercAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-numeric-down"
+                                    (click)="sortByProfitPercDesc()"></i></button></th>
+
+                        <th>רווח בשקלים<br><button class="sort-btn"><i class="fas fa-sort-numeric-up"
+                                    (click)="sortByProfitAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-numeric-down"
+                                    (click)="sortByProfitDesc()"></i></button>
+                        </th>
+
+                        <th>עלות עבודה<br><button class="sort-btn"><i class="fas fa-sort-numeric-up"
+                                    (click)="sortByLaborCostAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-numeric-down"
+                                    (click)="sortByLaborCostDesc()"></i></button>
+                        </th>
+
+                        <th>עלות חומרים<br><button class="sort-btn"><i class="fas fa-sort-numeric-up"
+                                    (click)="sortByMatCostAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-numeric-down"
+                                    (click)="sortByMatCostDesc()"></i></button>
+                        </th>
+
+                        <th>מכירה<br><button class="sort-btn"><i class="fas fa-sort-numeric-up"
+                                    (click)="sortByCustPaymentAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-numeric-down"
+                                    (click)="sortByCustPaymentDesc()"></i></button></th>
+
+                        <th>תיאור העבודה<br><button class="sort-btn"><i class="fas fa-sort-alpha-up"
+                                    (click)="sortByJobDescriptionAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-alpha-down"
+                                    (click)="sortByJobDescriptionDesc()"></i></button></th>
+
+                        <th>סוג העבודה<br><button class="sort-btn"><i class="fas fa-sort-alpha-up"
+                                    (click)="sortByJobTypeAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-alpha-down"
+                                    (click)="sortByJobTypeDesc()"></i></button>
+                        </th>
+
+                        <th>מקור העבודה<br><button class="sort-btn"><i class="fas fa-sort-alpha-up"
+                                    (click)="sortByJobOriginAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-alpha-down"
+                                    (click)="sortByJobOriginDesc()"></i></button>
+                        </th>
+
+                        <th>כתובת הלקוח<br><button class="sort-btn"><i class="fas fa-sort-alpha-up"
+                                    (click)="sortByCustAddressAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-alpha-down"
+                                    (click)="sortByCustAddressDesc()"></i></button>
+                        </th>
+
+                        <th>שם הלקוח<br><button class="sort-btn"><i class="fas fa-sort-alpha-up"
+                                    (click)="sortByCustNameAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-alpha-down"
+                                    (click)="sortByCustNameDesc()"></i></button>
+                        </th>
+
+                        <th>מספר העבודה<br><button class="sort-btn"><i class="fas fa-sort-numeric-up"
+                                    (click)="sortByJobNumberAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-numeric-down"
+                                    (click)="sortByJobNumberDesc()"></i></button>
+                        </th>
+
+                        <th>מספר זהות<br><button class="sort-btn"><i class="fas fa-sort-numeric-up"
+                                    (click)="sortByJobIdAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-numeric-down"
+                                    (click)="sortByJobIdDesc()"></i></button>
+                        </th>
+
+                        <th><button id="refreshButton" class="btn open-btn" title="רענן טבלה" (click)="jobListSwitcher()"><i class="fas fa-sync"></i></button></th>
+                        <th><button id="newProdButton" class="btn open-btn" title="הוסף עבודה חדשה" type="submit" data-toggle="modal" data-target="#createProdForm" (click)="redirectToNewOffer()">
+                                <i class="fa fa-plus" aria-hidden="true"></i></button></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="activeJobsTableTd" class="table" *ngFor="let job of jobsList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                        <td><button id="jobProductsButton" class="btn ml-2" title="צפה במוצרים" type="submit" data-toggle="modal" data-target="#activeJobsJobProductsModal" (click)="openJobProductsModal(job)">
+                                <i class="fas fa-video table-icon"></i></button>
+                        </td>
+                        <td>{{job.jobRemarks}}</td>
+                        <td>{{job.dateOfInstall | date : 'dd/MM/yyyy'}}</td>
+                        <td>{{job.jobDateOfOffer | date : 'dd/MM/yyyy'}}</td>
+                        <td>{{job.profitPerc}}%</td>
+                        <td>{{job.profit | currency:'ILS'}}</td>
+                        <td>{{job.laborCost | currency:'ILS'}}</td>
+                        <td>{{job.matCost | currency:'ILS'}}</td>
+                        <td>{{job.custPayment | currency:'ILS'}}</td>
+                        <td>{{job.jobDescription}}</td>
+                        <td>{{job.jobType}}</td>
+                        <td>{{job.jobOrigin}}</td>
+                        <td>{{job.custAddress}}</td>
+                        <td>{{job.custName}}</td>
+                        <td>{{job.jobNumber}}</td>
+                        <td>{{job.jobId}}</td>
+                        <td><button id="editJobButton" class="btn ml-2" title="ערוך עבודה" type="submit" data-toggle="modal" data-target="#editJobModal" (click)="getJobEditForm(job)"><i
+                                    class="fas fa-edit table-icon" aria-hidden="true"></i></button></td>
+                        <td><button id="deletJobButton" class="btn ml-2" title="מחק עבודה" type="submit" (click)="openDeleteJobConfirmModal(job)"><i class="fa fa-trash table-icon"
+                                    aria-hidden="true"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card-footer">
+            <div id="cardfooterRow" class="row justify-content-start overflow-auto mt-2">
+                <div class="col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                    <form id="paginationForm" [formGroup]="paginationForm">
+                        <select class="form-control custom-select" id="paginatorSizeChoice" formControlName="pageSize" (change)="selectPaginationPageSize()" style="width: 120px;">
+                            <option value="" hidden>עבודות בעמוד</option>
+                            <option class="pagination-options" *ngFor="let pageSize of pageSizeArray"
+                                [value]="pageSize.value">
+                                {{ pageSize.label }}</option>
+                        </select>
+                    </form>
+                </div>
+
+                <div class="col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                    <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="jobsList.length">
+                    </ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--Edit job form modal-->
+
+<form id="editJobForm" [formGroup]="editJobForm" #formDirective="ngForm">
+
+    <div class="modal fade" id="editJobModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100 font-weight-bold">ערוך הצעה</h5>
+                    <button id="editActiveJobClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-row justify-content-center">
+
+                        <div class="col-4 pt-3">
+                            <label>:עלות ההתקנה</label>
+                            <input type="number" id="laborCost" class="form-control input" dir="rtl" formControlName="laborCost" [ngClass]="{ 'is-invalid': editJobSubmitted && k.laborCost.errors }">
+                            <div *ngIf="editJobSubmitted && k.laborCost.errors" class="invalid-feedback">
+                                <div *ngIf="k.laborCost.errors.max">המספר שהוזן גדול מדי</div>
+                            </div>
+                        </div>
+
+                        <div class="col-4 pt-3">
+                            <label>:סוג העבודה</label>
+                            <input type="text" id="jobType" class="form-control input" dir="rtl" formControlName="jobType">
+                        </div>
+
+                        <div class="col-4 pt-3">
+                            <label>:מקור העבודה</label>
+                            <input type="text" id="jobOrigin" class="form-control input" formControlName="jobOrigin">
+                        </div>
+
+                    </div>
+
+                    <div class="form-row justify-content-center">
+
+                        <div class="col-12 pt-3 pb-3">
+                            <label>:תאריך התקנה</label>
+                            <input type="date" id="dateOfInstall" class="form-control input" dir="rtl" formControlName="dateOfInstall">
+                        </div>
+
+                    </div>
+
+                    <div class="form-row justify-content-center">
+
+                        <div class="col-6 pt-3 pb-3">
+                            <label>:הערות</label>
+                            <textarea type="text" id="jobRemarks" class="form-control input" dir="rtl" formControlName="jobRemarks"></textarea>
+                        </div>
+
+                        <div class="col-6 pt-3 pb-3">
+                            <label>:תיאור העבודה</label>
+                            <textarea type="text" id="jobDescription" class="form-control input" dir="rtl" formControlName="jobDescription"></textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer d-flex justify-content-around">
+                        <button class="btn close-btn" type="button" data-dismiss="modal">סגור</button>
+                        <button class="btn history-btn" type="submit" data-toggle="modal" data-target="#createNewJobHistoryModal" (click)="moveJobToHistoryModalOpen()">העבר
+                            להיסטוריה</button>
+                        <button class="btn open-btn" type="submit" (click)="editActiveJob()">ערוך</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!--Create new job history form modal-->
+
+<form id="createNewJobHistoryForm" [formGroup]="createNewJobHistoryForm" #formDirective="ngForm">
+    <div class="modal fade" id="createNewJobHistoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100 font-weight-bold">העבר עבודה להיסטוריה</h5>
+                    <button id="createNewJobHistoryModalClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-row justify-content-center">
+
+                        <div class="col-6 pt-3 pb-3">
+                            <label>:תאריך סיום</label>
+                            <input type="date" id="dateOfCompleat" class="form-control input" dir="rtl" formControlName="dateOfCompleat" [ngClass]="{ 'is-invalid': newJobHistorySubmitted && v.dateOfCompleat.errors }">
+                            <div *ngIf="newJobHistorySubmitted && v.dateOfCompleat.errors" class="invalid-feedback">
+                                <div *ngIf="v.dateOfCompleat.errors.required">יש להזין תאריך סיום</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-around">
+                        <button class="btn close-btn" type="button" data-dismiss="modal">סגור</button>
+                        <button class="btn open-btn" type="submit" (click)="moveJobToHistory()">העבר להיסטוריה</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!--JobProducts Table Modal-->
+
+<div class="modal fade" id="activeJobsJobProductsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title w-100 font-weight-bold">מוצרים</h5>
+                <button id="newProdClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="newProdForm">
+                <div class="modal-body">
+
+                    <div class="form-row justify-content-center">
+                        <div class="card-body">
+                            <table id="jobProductsTable" class="table table-sm table-striped">
+                                <thead>
+                                    <tr class="justify-content-center">
+                                        <th>מצב מלאי</th>
+
+                                        <th>מצב התקנה</th>
+
+                                        <th>סכ"ה</th>
+
+                                        <th>מחיר מכירה</th>
+
+                                        <th>כמות</th>
+
+                                        <th>שם</th>
+
+                                        <th>מספר</th>
+
+                                        <th><button id="refreshButton" class="btn open-btn" title="רענן טבלה" (click)="openJobProductsModal(job)"><i class="fas fa-sync"></i></button>
+                                        </th>
+                                        <th><button id="newProdButton" class="btn open-btn" title="הוסף מוצר" type="submit" data-toggle="modal" data-target="#addProductToActiveJobModal">
+                                                <i class="fa fa-plus" aria-hidden="true"></i></button></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr id="prodTable" class="table" *ngFor="let jobProduct of jobProductList">
+                                        <td class="product-missing" [class.colorSIR]='jobProduct.jobProductMissing.length < 25' [class.colorCAM]='jobProduct.jobProductMissing.length > 25'>
+                                            {{jobProduct.jobProductMissing}}</td>
+                                        <td>{{jobProduct.jobProductInst}}</td>
+                                        <td>{{jobProduct.jobProductSubtotal | currency:'ILS'}}</td>
+                                        <td>{{jobProduct.jobProductCost | currency:'ILS'}}</td>
+                                        <td>{{jobProduct.jobProductQuantity}}</td>
+                                        <td>{{jobProduct.jobProductName}}</td>
+                                        <td>{{jobProduct.jobProductNumber}}</td>
+                                        <td><button id="editProdButton" class="btn ml-2" title="ערוך מוצר" type="submit" data-toggle="modal" (click)="getEditActiveJobJobProductForm(jobProduct)" data-target="#activeJobJobProductEditModal"><i
+                                                    class="fas fa-edit table-icon" aria-hidden="true"></i></button></td>
+                                        <td><button id="deleteProdButton" class="btn ml-2" title="מחק מוצר" type="submit" (click)="openDeleteJobProductConfirmModal(jobProduct)">
+                                                <i class="fa fa-trash table-icon" aria-hidden="true"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div id="totalCostDiv" dir="rtl">מחיר מכירה כולל ללא מע"מ : {{custPayment | currency:'ILS'}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button id="jobProductTableClose" class="btn close-btn" type="button" data-dismiss="modal">סגור</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--Add products for offer modal-->
+
+<form id="activeJobJobProductAddForm" [formGroup]="activeJobJobProductAddForm" #formDirective="ngForm">
+    <div class="modal fade" id="addProductToActiveJobModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100 font-weight-bold">הוסף מוצר לעבודה</h5>
+                    <button id="newJobProductClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="md-form mt-4">
+                        <label>:מספר</label>
+                        <input type="number" id="jobProductNumber" class="form-control input" formControlName="jobProductNumber" [ngClass]="{ 'is-invalid': jobProductsSubmitted && f.jobProductNumber.errors }">
+                        <div *ngIf="jobProductsSubmitted && f.jobProductNumber.errors" class="invalid-feedback">
+                            <div *ngIf="f.jobProductNumber.errors.max">המספר שהוזן גדול מדי</div>
+                        </div>
+                    </div>
+
+                    <!--Used for sql database-->
+                    <div class="md-form mt-4">
+                        <label>:בחר מוצר</label>
+                        <select class="form-control custom-select" id="jobProductId" formControlName="jobProductId" [ngClass]="{ 'is-invalid': jobProductsSubmitted && f.jobProductId.errors }">
+                            <option class="default-option" value="" hidden>מוצרים</option>
+                            <option *ngFor="let product of productList" [value]="product.productId">
+                                {{ product.productName }}</option>
+                        </select>
+                        <div *ngIf="jobProductsSubmitted && f.jobProductId.errors" class="invalid-feedback">
+                            <div *ngIf="f.jobProductId.errors.required">יש לבחור מוצר</div>
+                        </div>
+                    </div>
+
+                    <div class="md-form mt-4">
+                        <label>:כמות</label>
+                        <input type="number" id="jobProductQuantity" class="form-control input" formControlName="jobProductQuantity" [ngClass]="{ 'is-invalid': jobProductsSubmitted && f.jobProductQuantity.errors }">
+                        <div *ngIf="jobProductsSubmitted && f.jobProductQuantity.errors" class="invalid-feedback">
+                            <div *ngIf="f.jobProductQuantity.errors.max">המספר שהוזן גדול מדי</div>
+                        </div>
+                    </div>
+
+                    <div class="md-form mt-4">
+                        <label>:מחיר מכירה</label>
+                        <input type="number" id="jobProductCost" class="form-control input" formControlName="jobProductCost" [ngClass]="{ 'is-invalid': jobProductsSubmitted && f.jobProductCost.errors }">
+                        <div *ngIf="jobProductsSubmitted && f.jobProductCost.errors" class="invalid-feedback">
+                            <div *ngIf="f.jobProductCost.errors.max">המספר שהוזן גדול מדי</div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer d-flex justify-content-around">
+                        <button class="btn close-btn" type="button" data-dismiss="modal">סגור</button>
+                        <button class="btn open-btn" type="submit" (click)="addActiveJobProduct()">הוסף</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!--Job products edit modal form-->
+
+<form id="activeJobJobProductEditForm" [formGroup]="activeJobJobProductEditForm" #formDirective="ngForm">
+    <div class="modal fade" id="activeJobJobProductEditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100 font-weight-bold">ערוך מוצר</h5>
+                    <button id="editProdClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="md-form mt-4">
+                        <label>:מספר</label>
+                        <input type="number" id="jobProductNumber" class="form-control input" formControlName="jobProductNumber" [ngClass]="{ 'is-invalid': editJobProductsSubmitted && z.jobProductNumber.errors }">
+                        <div *ngIf="editJobProductsSubmitted && z.jobProductNumber.errors" class="invalid-feedback">
+                            <div *ngIf="z.jobProductNumber.errors.max">המספר שהוזן גדול מדי</div>
+                        </div>
+                    </div>
+
+                    <!--Used for sql database-->
+                    <div class="md-form mt-4">
+                        <label>:בחר מוצר</label>
+                        <select class="form-control custom-select" id="jobProductId" formControlName="jobProductId">
+                            <option class="default-option" value="" hidden>מוצרים</option>
+                            <option *ngFor="let product of productList" [value]="product.productId">
+                                {{ product.productName }}</option>
+                        </select>
+                    </div>
+
+                    <div class="md-form mt-4">
+                        <label>:כמות</label>
+                        <input type="number" id="jobProductQuantity" class="form-control input" formControlName="jobProductQuantity" [ngClass]="{ 'is-invalid': editJobProductsSubmitted && z.jobProductQuantity.errors }">
+                        <div *ngIf="editJobProductsSubmitted && z.jobProductQuantity.errors" class="invalid-feedback">
+                            <div *ngIf="z.jobProductQuantity.errors.max">המספר שהוזן גדול מדי</div>
+                        </div>
+                    </div>
+
+                    <div class="md-form mt-4">
+                        <label>:מחיר מכירה</label>
+                        <input type="number" id="jobProductCost" class="form-control input" formControlName="jobProductCost" [ngClass]="{ 'is-invalid': editJobProductsSubmitted && z.jobProductCost.errors }">
+                        <div *ngIf="editJobProductsSubmitted && z.jobProductCost.errors" class="invalid-feedback">
+                            <div *ngIf="z.jobProductCost.errors.max">המספר שהוזן גדול מדי</div>
+                        </div>
+                    </div>
+
+                    <div class="md-form mt-4">
+                        <label>:כמה הותקנו</label>
+                        <select class="form-control custom-select" id="jobProductInst" formControlName="jobProductInst">
+                            <option class="default-option" value="" hidden>מספר המוצרים שהותקנו</option>
+                            <option *ngFor="let number of jobProductQuantityArray" [value]="number">
+                                {{ number }}</option>
+                        </select>
+                    </div>
+
+                    <div class="modal-footer d-flex justify-content-around">
+                        <button class="btn close-btn" type="button" data-dismiss="modal">סגור</button>
+                        <button class="btn open-btn" type="submit" (click)="editActiveJobProduct()">ערוך</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<app-snackbar></app-snackbar>
+<app-modals></app-modals>
+<app-idle></app-idle>

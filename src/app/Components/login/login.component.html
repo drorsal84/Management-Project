@@ -1,0 +1,49 @@
+<div class="container">
+
+    <div class="row pt-5 title">
+        <div class="col-12">
+            {{title}}
+        </div>
+    </div>
+
+    <div class="row pt-5 justify-content-center">
+        <div class="col-6 col-sm-6 col-md-5">
+            <div class="card-header instructions">
+                אנא הכנס שם משתמש וסיסמה
+            </div>
+        </div>
+    </div>
+
+    <form id="loginForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-row justify-content-center">
+            <div class="col-5 pt-5">
+                <input id="loginUserNameInput" placeholder="שם משתמש" type="text" formControlName="userName" class="form-control input" [ngClass]="{ 'is-invalid': submitted && f.userName.errors }" />
+                <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+                    <div *ngIf="f.userName.errors.required">יש להכניס שם משתמש</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row justify-content-center">
+            <div class="col-5 pt-4">
+                <input id="loginPasswordInput" placeholder="סיסמה" type="text" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                    <div *ngIf="f.password.errors.required">יש להכניס סיסמה</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row pt-4">
+            <div class="col-12" style="text-align: center;">
+                <button id="loginButton" class="btn" type="submit">התחבר</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--Snackbar buttons-->
+
+<button id="loginFailed" (click)="loginFailed()" class="btn" [hidden]="true"></button>
+
+<app-snackbar></app-snackbar>

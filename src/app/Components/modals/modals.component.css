@@ -1,0 +1,46 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
+.modal {
+    overflow: auto !important;
+    margin-top: 125px;
+}
+
+.modal-header {
+    background-color: #339966;
+    color: #fff;
+    padding-left: 40px;
+}
+
+.modal-header-danger {
+    background-color: #DC143C;
+    color: #fff;
+    padding-left: 40px;
+}
+
+.btn {
+    color: #fff;
+    background-color: #339966;
+    -webkit-transition: -webkit-filter 0.3s;
+    transition: -webkit-filter 0.3s;
+    -o-transition: filter 0.3s;
+    transition: filter 0.3s;
+    transition: filter 0.3s, -webkit-filter 0.3s;
+}
+
+.btn:hover {
+    -webkit-filter: brightness(120%);
+    filter: brightness(120%);
+}
+
+.open-btn {
+    background-color: #339966;
+}
+
+.close-btn {
+    background-color: #DC143C;
+}

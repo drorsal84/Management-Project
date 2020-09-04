@@ -1,0 +1,36 @@
+.modal {
+    overflow: auto !important;
+}
+
+.modal-header {
+    background-color: #339966;
+    color: #fff;
+}
+
+.modal-header-danger {
+    background-color: #DC143C;
+    color: #fff;
+}
+
+.btn {
+    color: #fff;
+    background-color: #339966;
+    -webkit-transition: -webkit-filter 0.3s;
+    transition: -webkit-filter 0.3s;
+    -o-transition: filter 0.3s;
+    transition: filter 0.3s;
+    transition: filter 0.3s, -webkit-filter 0.3s;
+}
+
+.btn:hover {
+    -webkit-filter: brightness(120%);
+    filter: brightness(120%);
+}
+
+.open-btn {
+    background-color: #339966;
+}
+
+.close-btn {
+    background-color: #DC143C;
+}

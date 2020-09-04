@@ -1,0 +1,28 @@
+.row {
+    width: 100%;
+}
+
+.navbar {
+    background-color: #339966;
+    text-align: right;
+}
+
+.navbar-text {
+    color: #fff;
+    font-size: 40px;
+    font: italic;
+    text-shadow: 1px 1px 5px #000;
+}
+
+img {
+    -webkit-transition: -webkit-filter 0.3s;
+    transition: -webkit-filter 0.3s;
+    -o-transition: filter 0.3s;
+    transition: filter 0.3s;
+    transition: filter 0.3s, -webkit-filter 0.3s;
+}
+
+img:hover {
+    -webkit-filter: brightness(80%);
+    filter: brightness(80%);
+}

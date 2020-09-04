@@ -1,0 +1,370 @@
+<div class="container w-100 d-print-none">
+
+    <!--page breadcrumbs-->
+
+    <div class="row justify-content-end bc-row">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">צור הצעה</li>
+                <li class="breadcrumb-item"><a class="bc-link" [routerLink]="'/jobs'">עבודות</a></li>
+                <li class="breadcrumb-item"><a class="bc-link" [routerLink]="'/homepage'">בית</a></li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="row title">
+        <div class="col-12">
+            {{title}}
+        </div>
+    </div>
+
+    <ngx-spinner [fullScreen]="true" type="ball-clip-rotate-multiple" size="medium" color="rgb(51, 153, 102)">
+        <p class="loading-spinner">...אוסף נתונים</p>
+    </ngx-spinner>
+
+    <!--Create new offer form-->
+
+    <form id="newOfferForm" [formGroup]="newOfferForm" #formDirective="ngForm">
+
+        <div class="form-row justify-content-center">
+
+            <div class="col-4 pt-3">
+                <input type="text" id="offerCustAddress" class="form-control input" dir="rtl" placeholder="כתובת הלקוח" formControlName="offerCustAddress" [ngClass]="{ 'is-invalid': newOfferSubmitted && f.offerCustAddress.errors }">
+                <div *ngIf="newOfferSubmitted && f.offerCustAddress.errors" class="invalid-feedback">
+                    <div *ngIf="f.offerCustAddress.errors.required">יש להזין את כתובת הלקוח</div>
+                </div>
+            </div>
+
+            <div class="col-4 pt-3">
+                <input type="text" id="offerCustName" class="form-control input" dir="rtl" placeholder="שם הלקוח" formControlName="offerCustName" [ngClass]="{ 'is-invalid': newOfferSubmitted && f.offerCustName.errors }">
+                <div *ngIf="newOfferSubmitted && f.offerCustName.errors" class="invalid-feedback">
+                    <div *ngIf="f.offerCustName.errors.required">יש להזין את שם הלקוח</div>
+                </div>
+            </div>
+
+            <div class="col-4 pt-3">
+                <input type="number" id="offerNumber" class="form-control input" placeholder="מספר עבודה" formControlName="offerNumber" [ngClass]="{ 'is-invalid': newOfferSubmitted && f.offerNumber.errors }">
+                <div *ngIf="newOfferSubmitted && f.offerNumber.errors" class="invalid-feedback">
+                    <div *ngIf="f.offerNumber.errors.required">יש להזין את מספר ההצעה</div>
+                    <div *ngIf="f.offerNumber.errors.max">המספר שהוזן גדול מדי</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row justify-content-center">
+
+            <div class="col-4 pt-3">
+                <input type="text" id="offerType" class="form-control input" dir="rtl" placeholder="סוג העבודה" formControlName="offerType">
+            </div>
+
+            <div class="col-4 pt-3">
+                <input type="text" id="offerOrigin" class="form-control input" placeholder="מקור העבודה" formControlName="offerOrigin">
+            </div>
+
+            <div class="col-4 pt-3">
+                <input type="text" id="dateOfOffer" class="form-control input" formControlName="dateOfOffer" placeholder="תאריך ההצעה" onfocus="(this.type='date')" onblur="(this.type='text')" [ngClass]="{ 'is-invalid': newOfferSubmitted && f.dateOfOffer.errors }" />
+                <div *ngIf="newOfferSubmitted && f.dateOfOffer.errors" class="invalid-feedback">
+                    <div *ngIf="f.dateOfOffer.errors.required">יש להזין תאריך</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-row justify-content-end">
+
+            <div class="col-4 pt-3">
+                <select class="form-control custom-select" id="offerReceived" formControlName="offerReceived" dir="rtl">
+                    <option class="default-option" value="" hidden>האם הלקוח קיבל את ההצעה?</option>
+                    <option *ngFor="let offerReceived of offerReceivedList" [value]="offerReceived.value">
+                        {{ offerReceived.label }}</option>
+                </select>
+            </div>
+
+            <div class="col-4 pt-3">
+                <textarea type="text" id="offerRemarks" class="form-control input" dir="rtl" placeholder="הערות" formControlName="offerRemarks"></textarea>
+            </div>
+
+            <div class="col-4 pt-3">
+                <textarea type="text" id="offerDescription" class="form-control input" dir="rtl" placeholder="תיאור העבודה" formControlName="offerDescription"></textarea>
+            </div>
+        </div>
+    </form>
+
+    <!--Add products for offer modal-->
+
+    <form id="newOfferProductsForm" [formGroup]="newOfferProductsForm" #formDirective="ngForm">
+        <div class="modal fade" id="addProductToOfferModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h5 class="modal-title w-100 font-weight-bold">הוסף מוצר להצעה</h5>
+                        <button id="newProdClose" type="button" class="close open-btn" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="md-form mt-4">
+                            <label>:מספר</label>
+                            <input type="number" id="offerProductNumber" class="form-control input" formControlName="offerProductNumber" [ngClass]="{ 'is-invalid': newOfferProductsSubmitted && v.offerProductNumber.errors }">
+                            <div *ngIf="newOfferProductsSubmitted && v.offerProductNumber.errors" class="invalid-feedback">
+                                <div *ngIf="v.offerProductNumber.errors.max">המספר שהוזן גדול מדי</div>
+                            </div>
+                        </div>
+
+                        <!--Used for sql database-->
+                        <div class="md-form mt-4">
+                            <label>:בחר מוצר</label>
+                            <select class="form-control custom-select" id="offerProductId" formControlName="offerProductId" [ngClass]="{ 'is-invalid': newOfferProductsSubmitted && v.offerProductId.errors }">
+                                <option value="" hidden style="color: black;">מוצרים</option>
+                                <option *ngFor="let product of productList" [value]="product.productId">
+                                    {{ product.productName }}</option>
+                            </select>
+                            <div *ngIf="newOfferProductsSubmitted && v.offerProductId.errors" class="invalid-feedback">
+                                <div *ngIf="v.offerProductId.errors.required">יש לבחור מוצר</div>
+                            </div>
+                        </div>
+
+                        <div class="md-form mt-4">
+                            <label>:כמות</label>
+                            <input type="text" id="offerProductQuantity" class="form-control input" formControlName="offerProductQuantity" [ngClass]="{ 'is-invalid': newOfferProductsSubmitted && v.offerProductQuantity.errors }">
+                            <div *ngIf="newOfferProductsSubmitted && v.offerProductQuantity.errors" class="invalid-feedback">
+                                <div *ngIf="v.offerProductQuantity.errors.max">המספר שהוזן גדול מדי</div>
+                            </div>
+                        </div>
+
+                        <div class="md-form mt-4">
+                            <label>:מחיר מכירה</label>
+                            <input type="text" id="offerProductCost" class="form-control input" formControlName="offerProductCost" [ngClass]="{ 'is-invalid': newOfferProductsSubmitted && v.offerProductCost.errors }">
+                            <div *ngIf="newOfferProductsSubmitted && v.offerProductCost.errors" class="invalid-feedback">
+                                <div *ngIf="v.offerProductCost.errors.max">המספר שהוזן גדול מדי</div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer d-flex justify-content-around">
+                            <button class="btn close-btn" type="button" data-dismiss="modal">סגור</button>
+                            <button class="btn open-btn" type="submit" (click)="addToOfferProductTable()">הוסף</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!--Offer products edit modal-->
+
+    <form id="editOfferProductsForm" [formGroup]="editOfferProductsForm" #formDirective="ngForm">
+        <div class="modal fade" id="editProductToOfferModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h5 class="modal-title w-100 font-weight-bold">ערוך מוצר</h5>
+                        <button id="editProdClose" type="button" class="close open-btn" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="md-form mt-4">
+                            <label>:מספר</label>
+                            <input type="text" id="offerProductNumber" class="form-control input" formControlName="offerProductNumber" [ngClass]="{ 'is-invalid': editOfferProductsSubmitted && k.offerProductNumber.errors }">
+                            <div *ngIf="newOfferProductsSubmitted && k.offerProductNumber.errors" class="invalid-feedback">
+                                <div *ngIf="k.offerProductNumber.errors.max">המספר שהוזן גדול מדי</div>
+                            </div>
+                        </div>
+
+                        <!--Used for sql database-->
+                        <div class="md-form mt-4">
+                            <label>:בחר מוצר</label>
+                            <select class="form-control custom-select" id="offerProductId" formControlName="offerProductId">
+                                <option class="default-option" value="" hidden>מוצרים</option>
+                                <option *ngFor="let product of productList" [value]="product.productId">
+                                    {{ product.productName }}</option>
+                            </select>
+                        </div>
+
+                        <div class="md-form mt-4">
+                            <label>:כמות</label>
+                            <input type="text" id="offerProductQuantity" class="form-control input" formControlName="offerProductQuantity" [ngClass]="{ 'is-invalid': editOfferProductsSubmitted && k.offerProductQuantity.errors }">
+                            <div *ngIf="newOfferProductsSubmitted && k.offerProductQuantity.errors" class="invalid-feedback">
+                                <div *ngIf="k.offerProductQuantity.errors.max">המספר שהוזן גדול מדי</div>
+                            </div>
+                        </div>
+
+                        <div class="md-form mt-4">
+                            <label>:מחיר מכירה</label>
+                            <input type="text" id="offerProductCost" class="form-control input" formControlName="offerProductCost" [ngClass]="{ 'is-invalid': editOfferProductsSubmitted && k.offerProductCost.errors }">
+                            <div *ngIf="newOfferProductsSubmitted && k.offerProductCost.errors" class="invalid-feedback">
+                                <div *ngIf="k.offerProductCost.errors.max">המספר שהוזן גדול מדי</div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer d-flex justify-content-around">
+                            <button class="btn close-btn" type="button" data-dismiss="modal">סגור</button>
+                            <button class="btn open-btn" type="submit" (click)="editOfferProduct()">ערוך</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!--Job products Table-->
+
+    <div class="form-row justify-content-center">
+        <div class="card-body overflow-auto">
+            <table class="table table-sm table-striped">
+                <thead>
+                    <tr class="justify-content-center">
+
+                        <th>סכ"ה</th>
+
+                        <th>מחיר מכירה</th>
+
+                        <th>כמות</th>
+
+                        <th>שם</th>
+
+                        <th>מספר</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="prodTable" class="table" *ngFor="let offerProduct of offerProductList">
+                        <td>{{offerProduct.offerProductSubtotal | currency:'ILS'}}</td>
+                        <td>{{offerProduct.offerProductCost | currency:'ILS'}}</td>
+                        <td>{{offerProduct.offerProductQuantity}}</td>
+                        <td>{{offerProduct.offerProductName}}</td>
+                        <td>{{offerProduct.offerProductNumber}}</td>
+                        <td><button id="editProdButton" class="btn ml-2" title="ערוך מוצר" type="submit" data-toggle="modal" data-target="#editProductToOfferModal" (click)="getEditForm(offerProduct)"><i class="fas fa-edit" aria-hidden="true"></i></button></td>
+                        <td><button id="deleteProdButton" (click)="openDeleteOfferProductConfirmModal(offerProduct)" class="btn ml-2" title="מחק מוצר" type="submit">
+                                <i class="fa fa-trash" aria-hidden="true"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="total-cost" dir="rtl">מחיר מכירה כולל ללא מע"מ : {{custPayment | currency:'ILS'}}</div>
+        </div>
+    </div>
+
+    <div class="form-row justify-content-center">
+
+        <div class="col-3 col-md-2 col-lg-2 col-xl-2 pt-2 text-center">
+            <button class="btn offers-btn" (click)="redirectToActiveOffers()">לצפייה בהצעות</button>
+        </div>
+
+        <div class="col-3 col-md-2 col-lg-2 col-xl-2 pt-2 text-center">
+            <button class="btn open-btn" type="submit" (click)="createNewOffer()">שמור הצעה</button>
+        </div>
+
+        <div class="col-3 col-md-2 col-lg-2 col-xl-2 pt-2 text-center">
+            <button class="btn add-product-btn" type="submit" data-toggle="modal" data-target="#addProductToOfferModal" (click)="newOfferProductsSubmitted=false">הוסף מוצר</button>
+        </div>
+    </div>
+</div>
+
+<app-snackbar></app-snackbar>
+<app-modals></app-modals>
+<app-idle></app-idle>
+
+
+
+<!--Print container display
+
+<div id="printOfferContainer" class="container w-100 d-none d-print-block">
+    <div id="headerRow" class="row justify-content-center">
+        <div class="col-4 pt-3">
+            <img class="img-thumbnail border border-dark" src="assets/HeaderImg/logo.gif">
+        </div>
+    </div>
+
+    <hr>
+
+    <div id="custNameRow" class="row justify-content-end pt-3 padding">
+        <div class="col text-left pt-3" style="font-size: 26px;">
+            <div>{{offerDate | date : 'dd/MM/yyyy'}}</div>
+        </div>
+
+        <div class="col text-right pt-3" style="text-decoration: underline; font-weight: bold; font-size: 26px;">
+            <div>לכבוד: {{custName}}&nbsp;,&nbsp;{{custAdress}}&nbsp;</div>
+        </div>
+    </div>
+
+    <div id="titleRow" class="row justify-content-end pt-3">
+        <div class="col text-center pt-3" style="text-decoration: underline; font-weight: bold; font-size: 26px;">
+            <div>&nbsp;{{jobNumber}}&nbsp;:הצעת מחיר</div>
+        </div>
+    </div>
+
+    <div id="tableRow" class="row justify-content-end pt-3">
+
+        <table class="table table-sm table-striped">
+            <thead>
+                <tr class="justify-content-center">
+
+                    <th>סכ"ה</th>
+
+                    <th>עלות</th>
+
+                    <th>כמות</th>
+
+                    <th>תיאור</th>
+
+                    <th>שם</th>
+
+                    <th>מספר</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="prodTable" class="table" *ngFor="let jobProduct of offerProductList">
+                    <td style="text-align: center;">{{jobProduct.jobProdSubtotal | currency:'ILS'}}</td>
+                    <td style="text-align: center;">{{jobProduct.jobProdCost | currency:'ILS'}}</td>
+                    <td style="text-align: center;">{{jobProduct.jobProdQuantity}}</td>
+                    <td style="text-align: right;">{{jobProduct.jobProductDesc}}</td>
+                    <td style="text-align: right;">{{jobProduct.jobProductName}}</td>
+                    <td style="text-align: center;">{{jobProduct.productNumber}}</td>
+            </tbody>
+        </table>
+        <div class="col text-left pt-2" style="font-size: 20px;">עלות כוללת : {{productTotal | currency:'ILS'}}</div>
+
+    </div>
+
+    <div id="condRow" class="row justify-content-end pt-1">
+        <div class="col text-right pt-3">
+            <div style="text-decoration: underline; font-weight: bold; font-size: 26px;">:מחירים ותנאי תשלום</div>
+            <div>{{jobCond}}</div>
+        </div>
+    </div>
+
+    <div id="warrantyRow" class="row justify-content-end pt-1">
+        <div class="col text-right pt-3">
+            <div style="text-decoration: underline; font-weight: bold; font-size: 26px;">:אחריות</div>
+            <div>{{jobWarranty}}</div>
+        </div>
+    </div>
+
+    <div id="content-wrap">
+        <footer class="page-footer d-none d-print-block">
+            <div id="regardsRow" class="row">
+                <div class="col text-right pt-3" style="font-weight: bold;">
+                    <div>,בברכה</div>
+                    <div>אמנון סלומון</div>
+                    <div>054-6398138</div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div id="printOfferfooterRow" class="row">
+                <div class="col text-center pt-3">
+                    <div>שידרוגים, ששת הימים 13 ת"ד 1096, זכרון יעקב 3094913 טל/פקס: 04-6397322</div>
+                    <br>
+                    <p>www.shidroogim.com&nbsp; &nbsp; &nbsp;shidroogim@walla.com&nbsp; &nbsp; &nbsp;ע.מ. 051176329</p>
+                </div>
+
+            </div>
+        </footer>
+    </div>
+
+</div> -->
