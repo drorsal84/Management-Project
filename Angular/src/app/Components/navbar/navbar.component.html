@@ -1,0 +1,29 @@
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+             <span class="navbar-toggler-icon"></span>
+            </button>
+
+<div class="collapse navbar-collapse" id="navbarResponsive">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" (click)="logout()">התנתק</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="'/products'" routerLinkActive='active'>מוצרים</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dir="rtl">הצעות ועבודות</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="nav-link" [routerLink]="'/jobs'">ראשי</a>
+                <div class="dropdown-divider"></div>
+                <a class="nav-link" [routerLink]="'/new-offer'">צור הצעה חדשה</a>
+                <a class="nav-link" [routerLink]="'/active-offers'">הצעות פעילות</a>
+                <a class="nav-link" [routerLink]="'/offers-history'">היסטוריית הצעות</a>
+                <a class="nav-link" [routerLink]="'/active-jobs'">עבודות פעילות</a>
+                <a class="nav-link" [routerLink]="'/jobs-history'">היסטוריית עבודות</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="'/homepage'" routerLinkActive='active'>בית</a>
+        </li>
+    </ul>
+</div>

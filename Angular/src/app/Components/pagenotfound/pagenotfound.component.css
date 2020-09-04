@@ -1,0 +1,72 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
+.container {
+    padding-bottom: 3.5rem;
+}
+
+.row {
+    color: #339966;
+    font-size: 40px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: center;
+    min-height: 75vh;
+}
+
+a {
+    color: #339966;
+    text-decoration: underline;
+}
+
+a:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-header-danger {
+    background-color: #DC143C;
+    color: #fff;
+}
+
+.btn {
+    color: #fff;
+    -webkit-transition: -webkit-filter 0.3s;
+    transition: -webkit-filter 0.3s;
+    -o-transition: filter 0.3s;
+    transition: filter 0.3s;
+    transition: filter 0.3s, -webkit-filter 0.3s;
+}
+
+.btn:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.btn:hover {
+    -webkit-filter: brightness(120%);
+    filter: brightness(120%);
+}
+
+.open-btn {
+    background-color: #339966;
+}
+
+.close-btn {
+    background-color: #DC143C;
+}

@@ -1,0 +1,489 @@
+<div class="container w-100 d-print-none">
+
+    <!--page breadcrumbs-->
+
+    <div class="row justify-content-end bc-row">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">הצעות פעילות</li>
+                <li class="breadcrumb-item"><a class="bc-link" [routerLink]="'/jobs'">עבודות</a></li>
+                <li class="breadcrumb-item"><a class="bc-link" [routerLink]="'/homepage'">בית</a></li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="row title">
+        <div class="col-12 pb-3">
+            {{title}}
+        </div>
+    </div>
+
+    <div class="card mr-n5 ml-n5">
+        <div class="card-header">
+            <div class="row justify-content-end">
+
+                <!--Search forms-->
+
+                <div class="col-8 col-lg-5">
+                    <form [formGroup]="offerSearchForm">
+                        <div class="input-group">
+                            <input type="text" class="form-control input" (input)="searchOffers()" placeholder="חיפוש" formControlName="searchInput" dir="rtl">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--Offers Table-->
+
+        <div class="card-body overflow-auto">
+            <table id="activeOffersTable" class="table table-sm table-hover">
+                <ngx-spinner [fullScreen]="true" type="ball-clip-rotate-multiple" size="medium" color="rgb(51, 153, 102)">
+                    <p class="loading-spinner">...אוסף נתונים</p>
+                </ngx-spinner>
+                <thead>
+                    <tr class="justify-content-center">
+
+                        <th style="vertical-align: middle;">מוצרים</th>
+
+                        <th>?ההצעה התקבלה<br><button class="sort-btn"><i class="fas fa-sort-alpha-up"
+                                    (click)="sortByOfferReceivedAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-alpha-down"
+                                    (click)="sortByOfferReceivedDesc()"></i></button></th>
+
+                        <th>הערות<br><button class="sort-btn"><i class="fas fa-sort-alpha-up"
+                                    (click)="sortByOfferRemarksAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-alpha-down"
+                                    (click)="sortByOfferRemarksDesc()"></i></button></th>
+
+                        <th>תאריך <br><button class="sort-btn"><i class="fas fa-sort-numeric-up"
+                                    (click)="sortByDateOfOfferAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-numeric-down"
+                                    (click)="sortByDateOfOfferDesc()"></i></button></th>
+
+                        <th>מכירה <br><button class="sort-btn"><i class="fas fa-sort-numeric-up"
+                                    (click)="sortByOfferCustPaymentsAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-numeric-down"
+                                    (click)="sortByOfferCustPaymentDesc()"></i></button></th>
+
+                        <th>תיאור ההצעה<br><button class="sort-btn"><i class="fas fa-sort-alpha-up"
+                                    (click)="sortByOfferDescriptionAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-alpha-down"
+                                    (click)="sortByOfferDescriptionDesc()"></i></button></th>
+
+                        <th>סוג ההצעה<br><button class="sort-btn"><i class="fas fa-sort-alpha-up"
+                                    (click)="sortByOfferTypeAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-alpha-down"
+                                    (click)="sortByOfferTypeDesc()"></i></button></th>
+
+                        <th>מקור ההצעה <br><button class="sort-btn"><i class="fas fa-sort-alpha-up"
+                                    (click)="sortByOfferOriginAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-alpha-down"
+                                    (click)="sortByOfferOriginDesc()"></i></button></th>
+
+                        <th>כתובת הלקוח<br><button class="sort-btn"><i class="fas fa-sort-alpha-up"
+                                    (click)="sortByOfferCustAddressAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-alpha-down"
+                                    (click)="sortByOfferCustAddressDesc()"></i></button></th>
+
+                        <th>שם הלקוח<br><button class="sort-btn"><i class="fas fa-sort-alpha-up"
+                                    (click)="sortByOfferCustNameAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-alpha-down"
+                                    (click)="sortByOfferCustNameDesc()"></i></button></th>
+
+                        <th>מספר ההצעה <br><button class="sort-btn"><i class="fas fa-sort-numeric-up"
+                                    (click)="sortByOfferNumberAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-numeric-down"
+                                    (click)="sortByOfferNumberDesc()"></i></button></th>
+
+                        <th>מספר זהות<br><button class="sort-btn"><i class="fas fa-sort-numeric-up"
+                                    (click)="sortByOfferIdAsc()"></i></button>
+                            <button class="sort-btn"><i class="fas fa-sort-numeric-down"
+                                    (click)="sortByOfferIdDesc()"></i></button></th>
+
+                        <th><button id="refreshButton" class="btn open-btn" title="רענן טבלה" (click)="offerListSwitcher()"><i class="fas fa-sync"></i></button></th>
+                        <th><button id="newProdButton" class="btn open-btn" title="הוסף הצעה חדשה" type="submit" data-toggle="modal" data-target="#createProdForm" (click)="redirectToNewOffer()">
+                                <i class="fa fa-plus" aria-hidden="true"></i></button></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="activeOffersTableTd" class="table" *ngFor="let offer of offerList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                        <td><button id="offerProductsButton" class="btn ml-2" title="צפה במוצרים" type="submit" data-toggle="modal" data-target="#activeOfferOfferProductsModal" (click)="openOfferProductsModal(offer)">
+                                <i class="fas fa-video table-icon"></i></button>
+                        </td>
+                        <td>{{offer.offerReceived}}</td>
+                        <td>{{offer.offerRemarks}}</td>
+                        <td>{{offer.dateOfOffer | date : 'dd/MM/yyyy'}}</td>
+                        <td>{{offer.offerCustPayment | currency:'ILS'}}</td>
+                        <td>{{offer.offerDescription}}</td>
+                        <td>{{offer.offerType}}</td>
+                        <td>{{offer.offerOrigin}}</td>
+                        <td>{{offer.offerCustAddress}}</td>
+                        <td>{{offer.offerCustName}}</td>
+                        <td>{{offer.offerNumber}}</td>
+                        <td>{{offer.offerId}}</td>
+                        <td><button id="editOfferButton" class="btn ml-2" title="ערוך הצעה" type="submit" data-toggle="modal" data-target="#editOfferModal" (click)="getOfferEditForm(offer)"><i
+                                    class="fas fa-edit table-icon" aria-hidden="true"></i></button></td>
+                        <td><button id="deleteOfferButton" class="btn ml-2" title="מחק הצעה" type="submit" (click)="openDeleteOfferConfirmModal(offer)"><i class="fa fa-trash table-icon"
+                                    aria-hidden="true"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card-footer">
+            <div id="cardfooterRow" class="row justify-content-start overflow-auto mt-2">
+                <div class="col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                    <form id="paginationForm" [formGroup]="paginationForm">
+                        <select class="form-control custom-select" id="paginatorSizeChoice" formControlName="pageSize" (change)="selectPaginationPageSize()" style="width: 120px;">
+                            <option value="" hidden>הצעות בעמוד</option>
+                            <option class="pagination-options" *ngFor="let pageSize of pageSizeArray"
+                                [value]="pageSize.value">
+                                {{ pageSize.label }}</option>
+                        </select>
+                    </form>
+                </div>
+
+                <div class="col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                    <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="offerList.length">
+                    </ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--Create new job form modal-->
+
+<form id="createNewJobForm" [formGroup]="createNewJobForm" #formDirective="ngForm">
+    <div class="modal fade" id="createNewJobModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100 font-weight-bold">צור עבודה חדשה</h5>
+                    <button id="createNewJobModalClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row justify-content-center">
+
+                        <div class="col-6 pt-3">
+                            <label>:עלות עבודה</label>
+                            <input type="number" id="laborCost" class="form-control input" dir="rtl" formControlName="laborCost" [ngClass]="{ 'is-invalid': newJobSubmitted && v.laborCost.errors }">
+                            <div *ngIf="newJobSubmitted && v.laborCost.errors" class="invalid-feedback">
+                                <div *ngIf="v.laborCost.errors.required">יש להזין את עלות העבודה</div>
+                                <div *ngIf="v.laborCost.errors.max">המספר שהוזן גדול מדי</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-row justify-content-center">
+
+                        <div class="col-6 pt-3 pb-3">
+                            <label>:תאריך התקנה משוער</label>
+                            <input type="date" id="dateOfInstall" class="form-control input" dir="rtl" formControlName="dateOfInstall" [ngClass]="{ 'is-invalid': newJobSubmitted && v.dateOfInstall.errors }">
+                            <div *ngIf="newJobSubmitted && v.dateOfInstall.errors" class="invalid-feedback">
+                                <div *ngIf="v.dateOfInstall.errors.required">יש להזין תאריך עבודה משוער</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer d-flex justify-content-around">
+                        <button class="btn close-btn" type="button" data-dismiss="modal">סגור</button>
+                        <button class="btn open-btn" type="submit" (click)="createNewJob()">הפעל עבודה</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!--Edit offer form modal-->
+
+<form id="editOfferForm" [formGroup]="editOfferForm" #formDirective="ngForm">
+
+    <div class="modal fade" id="editOfferModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100 font-weight-bold">ערוך הצעה</h5>
+                    <button id="editActiveOfferClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row justify-content-center">
+
+                        <div class="col-4 pt-3">
+                            <label>:כתובת הלקוח</label>
+                            <input type="text" id="offerCustAddress" class="form-control input" dir="rtl" formControlName="offerCustAddress">
+                        </div>
+
+                        <div class="col-4 pt-3">
+                            <label>:שם הלקוח</label>
+                            <input type="text" id="offerCustName" class="form-control input" dir="rtl" formControlName="offerCustName">
+                        </div>
+
+                        <div class="col-4 pt-3">
+                            <label>:מספר העבודה</label>
+                            <input type="number" id="offerNumber" class="form-control input" formControlName="offerNumber" [ngClass]="{ 'is-invalid': editOfferSubmitted && k.offerNumber.errors }">
+                            <div *ngIf="editOfferSubmitted && k.offerNumber.errors" class="invalid-feedback">
+                                <div *ngIf="k.offerNumber.errors.max">המספר שהוזן גדול מדי</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row justify-content-center">
+
+                        <div class="col-6 pt-3">
+                            <label>:סוג העבודה</label>
+                            <input type="text" id="offerType" class="form-control input" dir="rtl" formControlName="offerType">
+                        </div>
+
+                        <div class="col-6 pt-3">
+                            <label>:מקור העבודה</label>
+                            <input type="text" id="offerOrigin" class="form-control input" formControlName="offerOrigin">
+                        </div>
+
+                    </div>
+
+                    <div class="form-row justify-content-center">
+
+                        <div class="col-6 pt-3">
+                            <label>:הלקוח קיבל את ההצעה</label>
+                            <select class="form-control custom-select" id="offerReceived" formControlName="offerReceived" dir="rtl">
+                                <option class="default-option" value="" hidden>האם הלקוח קיבל את ההצעה?</option>
+                                <option *ngFor="let offerReceived of offerReceivedList" [value]="offerReceived.value">
+                                    {{ offerReceived.label }}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-6 pt-3">
+                            <label>:תאריך שליחת ההצעה</label>
+                            <input type="date" id="dateOfOffer" class="form-control input" formControlName="dateOfOffer" placeholder="תאריך שליחת ההצעה" />
+                        </div>
+
+                    </div>
+
+                    <div class="form-row justify-content-center">
+
+                        <div class="col-6 pt-3 pb-3">
+                            <label>:הערות</label>
+                            <textarea type="text" id="offerRemarks" class="form-control input" dir="rtl" formControlName="offerRemarks"></textarea>
+                        </div>
+
+                        <div class="col-6 pt-3 pb-3">
+                            <label>:תיאור העבודה</label>
+                            <textarea type="text" id="offerDescription" class="form-control input" dir="rtl" formControlName="offerDescription"></textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer d-flex justify-content-around">
+                        <button class="btn close-btn" type="button" data-dismiss="modal">סגור</button>
+                        <button class="btn history-btn" type="submit" (click)="moveOfferToHistoryModalOpen()">העבר
+                            להיסטוריה</button>
+                        <button class="btn active-job-btn" type="submit" data-toggle="modal" data-target="#createNewJobModal" (click)="openCreateNewJobModal()">הפעל עבודה</button>
+                        <button class="btn open-btn" type="submit" (click)="editActiveOffer()">אשר עריכה</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!--offerProducts Table Modal-->
+
+<div class="modal fade" id="activeOfferOfferProductsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title w-100 font-weight-bold">מוצרים</h5>
+                <button id="newProdClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="newProdForm">
+                <div class="modal-body">
+
+                    <div class="form-row justify-content-center">
+                        <div class="card-body overflow-auto">
+                            <table class="table table-sm table-striped">
+                                <thead>
+                                    <tr class="justify-content-center">
+                                        <th>מצב מלאי</th>
+
+                                        <th>סכ"ה</th>
+
+                                        <th>מחיר מכירה</th>
+
+                                        <th>כמות</th>
+
+                                        <th>שם</th>
+
+                                        <th>מספר</th>
+
+                                        <th><button id="refreshButton" class="btn open-btn" title="רענן טבלה" (click)="openOfferProductsModal(offer)"><i
+                                                    class="fas fa-sync"></i></button></th>
+                                        <th><button id="newProdButton" class="btn open-btn" title="הוסף מוצר" type="submit" data-toggle="modal" data-target="#addPrductToActiveOfferModal" (click)="offerProductSubmitted=false">
+                                                <i class="fa fa-plus" aria-hidden="true"></i></button></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr id="prodTable" class="table" *ngFor="let offerProduct of offerProductList">
+                                        <td class="product-missing" [class.colorSIR]='offerProduct.offerProductMissing.length < 25' [class.colorCAM]='offerProduct.offerProductMissing.length > 25'>
+                                            {{offerProduct.offerProductMissing}}</td>
+                                        <td>{{offerProduct.offerProductSubtotal | currency:'ILS'}}</td>
+                                        <td>{{offerProduct.offerProductCost | currency:'ILS'}}</td>
+                                        <td>{{offerProduct.offerProductQuantity}}</td>
+                                        <td>{{offerProduct.offerProductName}}</td>
+                                        <td>{{offerProduct.offerProductNumber}}</td>
+                                        <td><button id="editProdButton" class="btn ml-2" title="ערוך מוצר" type="submit" data-toggle="modal" (click)="getEditActiveOfferOfferProductForm(offerProduct)" data-target="#activeOfferOfferProductEditModal"><i
+                                                    class="fas fa-edit table-icon" aria-hidden="true"></i></button></td>
+                                        <td><button id="deletProdButton" class="btn ml-2" title="מחק מוצר" type="submit" (click)="openDeleteOfferProductConfirmModal(offerProduct)">
+                                                <i class="fa fa-trash table-icon" aria-hidden="true"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="total-cost" dir="rtl">מחיר מכירה כולל ללא מע"מ : {{custPayment | currency:'ILS'}}</div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button id="offerProductTableClose" class="btn close-btn" type="button" data-dismiss="modal">סגור</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--Add products for offer modal-->
+
+<form id="activeOfferOfferProductAddForm" [formGroup]="activeOfferOfferProductAddForm" #formDirective="ngForm">
+    <div class="modal fade" id="addPrductToActiveOfferModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100 font-weight-bold">הוסף מוצר להצעה</h5>
+                    <button id="newOfferProductClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="md-form mt-4">
+                        <label>:מספר</label>
+                        <input type="number" id="offerProductNumber" class="form-control input" formControlName="offerProductNumber" [ngClass]="{ 'is-invalid': offerProductSubmitted && f.offerProductNumber.errors }">
+                        <div *ngIf="offerProductSubmitted && f.offerProductNumber.errors" class="invalid-feedback">
+                            <div *ngIf="f.offerProductNumber.errors.max">המספר שהוזן גדול מדי</div>
+                        </div>
+                    </div>
+
+                    <!--Used for sql database-->
+                    <div class="md-form mt-4">
+                        <label>:בחר מוצר</label>
+                        <select class="form-control custom-select" id="offerProductId" formControlName="offerProductId" [ngClass]="{ 'is-invalid': offerProductSubmitted && f.offerProductId.errors }">
+                            <option class="default-option" value="" hidden>מוצרים</option>
+                            <option *ngFor="let product of productList" [value]="product.productId">
+                                {{ product.productName }}</option>
+                        </select>
+                        <div *ngIf="offerProductSubmitted && f.offerProductId.errors" class="invalid-feedback">
+                            <div *ngIf="f.offerProductId.errors.required">יש לבחור מוצר</div>
+                        </div>
+                    </div>
+
+                    <div class="md-form mt-4">
+                        <label>:כמות</label>
+                        <input type="number" id="offerProductQuantity" class="form-control input" formControlName="offerProductQuantity" [ngClass]="{ 'is-invalid': offerProductSubmitted && f.offerProductQuantity.errors }">
+                        <div *ngIf="offerProductSubmitted && f.offerProductQuantity.errors" class="invalid-feedback">
+                            <div *ngIf="f.offerProductQuantity.errors.max">המספר שהוזן גדול מדי</div>
+                        </div>
+                    </div>
+
+                    <div class="md-form mt-4">
+                        <label>:מחיר מכירה</label>
+                        <input type="number" id="offerProductCost" class="form-control input" formControlName="offerProductCost" [ngClass]="{ 'is-invalid': offerProductSubmitted && f.offerProductCost.errors }">
+                        <div *ngIf="offerProductSubmitted && f.offerProductCost.errors" class="invalid-feedback">
+                            <div *ngIf="f.offerProductCost.errors.max">המספר שהוזן גדול מדי</div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer d-flex justify-content-around">
+                        <button class="btn close-btn" type="button" data-dismiss="modal">סגור</button>
+                        <button class="btn open-btn" type="submit" (click)="addActiveOfferProduct()">הוסף</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!--Offer products edit modal form-->
+
+<form id="activeOfferOfferProductEditForm" [formGroup]="activeOfferOfferProductEditForm" #formDirective="ngForm">
+    <div class="modal fade" id="activeOfferOfferProductEditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100 font-weight-bold">ערוך מוצר</h5>
+                    <button id="editProdClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="md-form mt-4">
+                        <label>:מספר</label>
+                        <input type="number" id="offerProductNumber" class="form-control input" formControlName="offerProductNumber" [ngClass]="{ 'is-invalid': editOfferProductSubmitted && z.editOfferProductNumber.errors }">
+                        <div *ngIf="editOfferProductSubmitted && z.offerProductNumber.errors" class="invalid-feedback">
+                            <div *ngIf="z.offerProductNumber.errors.max">המספר שהוזן גדול מדי</div>
+                        </div>
+                    </div>
+
+                    <!--Used for sql database-->
+                    <div class="md-form mt-4">
+                        <label>:בחר מוצר</label>
+                        <select class="form-control custom-select" id="offerProductId" formControlName="offerProductId">
+                            <option class="default-option" value="" hidden>מוצרים</option>
+                            <option *ngFor="let product of productList" [value]="product.productId">
+                                {{ product.productName }}</option>
+                        </select>
+                    </div>
+
+                    <div class="md-form mt-4">
+                        <label>:כמות</label>
+                        <input type="number" id="offerProductQuantity" class="form-control input" formControlName="offerProductQuantity" [ngClass]="{ 'is-invalid': editOfferProductSubmitted && z.editOfferProductQuantity.errors }">
+                        <div *ngIf="editOfferProductSubmitted && z.offerProductQuantity.errors" class="invalid-feedback">
+                            <div *ngIf="z.offerProductQuantity.errors.max">המספר שהוזן גדול מדי</div>
+                        </div>
+                    </div>
+
+                    <div class="md-form mt-4">
+                        <label>:מחיר מכירה</label>
+                        <input type="number" id="offerProductCost" class="form-control input" formControlName="offerProductCost" [ngClass]="{ 'is-invalid': editOfferProductSubmitted && z.editOfferProductCost.errors }">
+                        <div *ngIf="editOfferProductSubmitted && z.offerProductCost.errors" class="invalid-feedback">
+                            <div *ngIf="z.offerProductCost.errors.max">המספר שהוזן גדול מדי</div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer d-flex justify-content-around">
+                        <button class="btn close-btn" type="button" data-dismiss="modal">סגור</button>
+                        <button class="btn open-btn" type="submit" (click)="editActiveOfferProduct()">ערוך</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<app-snackbar></app-snackbar>
+<app-modals></app-modals>
+<app-idle></app-idle>

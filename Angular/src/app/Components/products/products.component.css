@@ -1,0 +1,212 @@
+.mainContainer {
+    padding-bottom: 9rem;
+}
+
+
+/* BreadCrumbs */
+
+.bc-row {
+    font-size: 14px;
+}
+
+.bc-link {
+    color: #339966;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+/* Buttons */
+
+.btn {
+    color: #fff;
+    -webkit-transition: -webkit-filter 0.3s;
+    transition: -webkit-filter 0.3s;
+    -o-transition: filter 0.3s;
+    transition: filter 0.3s;
+    transition: filter 0.3s, -webkit-filter 0.3s;
+}
+
+.btn:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.btn:hover {
+    -webkit-filter: brightness(120%);
+    filter: brightness(120%);
+}
+
+.sort-btn {
+    color: #339966;
+    border: none;
+    background: none;
+    padding: 2px;
+}
+
+.sort-btn:focus {
+    -webkit-filter: brightness(140%);
+    filter: brightness(140%);
+    border: none;
+    background: none;
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.open-btn {
+    background-color: #339966;
+}
+
+.close-btn {
+    background-color: #DC143C;
+}
+
+
+/* Table */
+
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+    background-color: #000;
+}
+
+.table td,
+.table th {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table td {
+    color: #fff;
+    font-family: Helvetica, sans-serif;
+    font-size: 12px;
+}
+
+.table th {
+    color: #339966;
+    font-size: 13px;
+}
+
+td img {
+    width: 40px;
+}
+
+.loading-spinner {
+    color: #339966;
+}
+
+
+/* Pagination */
+
+ngb-pagination ::ng-deep ul>li:not(.active)>a {
+    color: #339966 !important;
+    background-color: #fff !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    font-size: 10px;
+}
+
+ngb-pagination ::ng-deep ul>li.active>a {
+    color: #fff !important;
+    background-color: #339966 !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border-color: #fff !important;
+    font-size: 10px;
+}
+
+.pagination-options {
+    color: #339966;
+}
+
+
+/* Modals */
+
+.modal {
+    overflow: auto !important;
+}
+
+.modal-header {
+    background-color: #339966;
+    color: #fff;
+    padding-left: 40px;
+}
+
+form {
+    text-align: right;
+    color: #339966;
+}
+
+.md-form {
+    text-align: right;
+}
+
+select,
+input,
+textarea {
+    direction: rtl;
+    font-size: 13px;
+}
+
+option {
+    color: #fff;
+}
+
+.default-option {
+    color: #000;
+}
+
+
+/* Category Colors */
+
+.colorDET {
+    background-color: #0275d8;
+}
+
+.colorCON {
+    background-color: #5bc0de;
+}
+
+.colorKEY {
+    background-color: #f0ad4e;
+}
+
+.colorSIR {
+    background-color: #d9534f;
+}
+
+.colorCAM {
+    background-color: #5cb85c;
+}
+
+.colorDVR {
+    background-color: #f78853;
+}
+
+.colorINT {
+    background-color: #1b7e4c;
+}
+
+.colorCOD {
+    background-color: #49118e;
+}
+
+.colorBUT {
+    background-color: #878de4;
+}
+
+.colorLOC {
+    background-color: #a3a8b6;
+}
+
+.colorBAT {
+    background-color: #775920;
+}
+
+.colorPOW {
+    background-color: #292b2c;
+}
+
+.colorACC {
+    background-color: #881014;
+}

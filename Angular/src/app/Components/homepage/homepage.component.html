@@ -1,0 +1,35 @@
+<div class="container w-50">
+    <div class="row">
+        <div id="productCard" class="col-md-6" [@animateCard]>
+            <div class="card border-success">
+                <a [routerLink]="'/products'"><img class="card-img-top" src="assets/HomepageImg/products.png"></a>
+                <div class="card-body">
+                    <h3 class="card-title"><a [routerLink]="'/products'">מוצרים</a></h3>
+                    <span clss="card-text"><a [routerLink]="'/products'">טבלת מוצרים מתעדכנת הכוללת הוספה, עריכה ומחיקה
+                            של
+                            מוצרים</a></span>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <div id="jobsCard" class="col-md-6" [@animateCard]>
+            <div class="card border-success">
+                <a [routerLink]="'/jobs'"><img class="card-img-top" src="assets/HomepageImg/jobs.png"></a>
+                <div class="card-body">
+                    <h3 class="card-title"><a [routerLink]="'/jobs'">עבודות</a></h3>
+                    <a [routerLink]="'/new-offer'"><span clss="card-text">צור הצעה חדשה </span></a>
+                    <span clss="card-text">|</span>
+                    <a [routerLink]="'/active-offers'"><span clss="card-text"> הצעות פעילות </span></a>
+                    <span clss="card-text">|</span>
+                    <a [routerLink]="'/offers-history'"><span clss="card-text"> היסטוריית הצעות </span></a>
+                    <span clss="card-text">|</span>
+                    <a [routerLink]="'/active-jobs'"><span clss="card-text"> עבודות פעילות </span></a>
+                    <span clss="card-text">|</span>
+                    <a [routerLink]="'/jobs-history'"><span clss="card-text"> היסטוריית עבודות</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-idle></app-idle>

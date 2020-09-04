@@ -1,0 +1,27 @@
+<!--You are idle modal-->
+
+<div id="youAreIdleModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <button id="youAreIdleModalOpen" [hidden]="true" data-toggle="modal" data-target="#youAreIdleModal">Open
+        Modal</button>
+            <div class="modal-header modal-header-danger text-center">
+                <h5 class="modal-title w-100 font-weight-bold">?יש שם מישהו</h5>
+                <button id="youAreIdleModalClose" type="button" class="close pull-right" aria-label="Close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body text-center">
+                {{idleState}}
+                <div class="row mrgbtm text-center mt-4">
+                    <div class="col-md-6">
+                        <button type="button" (click)="logout()" class="btn close-btn">התנתק</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" data-dismiss="modal" class="btn open-btn">הישאר</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

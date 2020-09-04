@@ -1,0 +1,52 @@
+.container {
+    padding-bottom: 10rem;
+}
+
+.bcHomepageLink {
+    color: #339966;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.bcRow {
+    font-size: 14px;
+}
+
+.card,
+.card-body {
+    border-width: 2px;
+    color: #339966;
+}
+
+.card {
+    margin: 0 auto;
+    top: 17%;
+    width: 220px;
+    height: 210px;
+}
+
+.card-body {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.card-body__link {
+    font-size: 19px;
+    vertical-align: middle;
+}
+
+.card-body__link:link,
+.card-body__link:visited {
+    color: #339966;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.card-body__link:hover {
+    font-weight: bold;
+}
+
+.modal-header-danger {
+    background-color: #DC143C;
+    color: #fff;
+}

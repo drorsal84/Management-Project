@@ -1,0 +1,9 @@
+#mainContainer{
+    padding-bottom: 5rem;
+  }
+
+  @media screen {
+    :host {
+      display: none;
+    }
+  }
